@@ -1,250 +1,345 @@
 # Open WebUI Chrome Extension
 
+> 🚀 **Quick Start:** Read [START_HERE.md](./START_HERE.md) to get started in 30 minutes!
+
 A Chrome extension that embeds Open WebUI chat functionality directly into your browser, providing quick access to AI chat from any webpage.
 
-## 🚀 Features
+![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue?logo=google-chrome)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue?logo=typescript)
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Manifest v3](https://img.shields.io/badge/Manifest-v3-green)
 
-- **Quick Access**: One-click access to Open WebUI chat from browser toolbar
-- **Context Menu**: Right-click selected text and send directly to chat
-- **Persistent Sessions**: Stay logged in across browser sessions
-- **Clean UI**: Responsive chat interface optimized for the extension popup
-- **Settings Page**: Configure your Open WebUI instance URL and preferences
+## 🌟 Features
+
+- **📌 Quick Access**: One-click access to Open WebUI chat from browser toolbar
+- **📝 Context Menu**: Right-click selected text and send directly to chat
+- **🔐 Persistent Sessions**: Stay logged in across browser sessions
+- **💬 Clean UI**: Responsive chat interface optimized for the extension popup
+- **⚙️ Settings Page**: Configure your Open WebUI instance URL and preferences
+- **🎨 Customizable**: Easy to brand with your company colors and logo
+
+## 📸 Screenshots
+
+[Extension Popup] → [Login Screen] → [Chat Interface] → [Settings Page]
+
+*Screenshots coming soon - extension is ready to use!*
+
+## 🎯 Quick Start
+
+### ⚡ 5-Minute Setup
+
+```bash
+# 1. Clone and install
+git clone https://github.com/chad-atexpedient/openwebui-chrome-extension.git
+cd openwebui-chrome-extension
+npm install
+
+# 2. Create icons (open in browser)
+open create-icons.html
+
+# 3. Configure API (see API_CONFIGURATION.md)
+# Edit src/shared/api/client.ts with your endpoints
+
+# 4. Build
+npm run build
+
+# 5. Load in Chrome
+# chrome://extensions/ → Enable Developer mode → Load unpacked → Select dist/
+```
+
+📖 **Full Setup Guide:** [START_HERE.md](./START_HERE.md)
 
 ## 📋 Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js 16+ ([Download](https://nodejs.org/))
 - Chrome or Edge browser
-- Access to an Open WebUI instance with API access
-
-## 🛠️ Setup Instructions
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/chad-atexpedient/openwebui-chrome-extension.git
-cd openwebui-chrome-extension
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Create Extension Icons
-
-You need to create three icon sizes. Place them in the `public/icons/` directory:
-- `icon16.png` (16x16 pixels)
-- `icon48.png` (48x48 pixels)
-- `icon128.png` (128x128 pixels)
-
-You can create these using any image editor or generate them online. For now, you can use placeholder icons.
-
-### 4. Build the Extension
-
-```bash
-npm run build
-```
-
-This will create a `dist` folder with the compiled extension.
-
-### 5. Load in Chrome
-
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Enable "Developer mode" (toggle in top-right corner)
-3. Click "Load unpacked"
-4. Select the `dist` folder from this project
-5. The extension icon should appear in your toolbar!
-
-## 🔧 Development Mode
-
-For development with hot reload:
-
-```bash
-npm run dev
-```
-
-Then load the `dist` folder in Chrome as described above. The extension will rebuild automatically when you make changes.
-
-## 📖 Usage
-
-### First Time Setup
-
-1. Click the extension icon in your toolbar
-2. Enter your Open WebUI instance details:
-   - **Base URL**: Your Open WebUI instance URL (e.g., `https://your-instance.com`)
-   - **Email**: Your login email
-   - **Password**: Your password
-3. Click "Sign In"
-
-### Chatting
-
-Once logged in:
-- Type your message in the input box
-- Press Enter or click "Send"
-- Messages appear in the chat window
-- Click "Logout" to sign out
-
-### Using Context Menu
-
-1. Select any text on a webpage
-2. Right-click and choose "Send to Open WebUI"
-3. The extension opens with the selected text ready to send
-
-### Settings
-
-Click "Options" in the extension details page (`chrome://extensions/`) to:
-- Update your Open WebUI base URL
-- Change theme preferences
-- Configure other settings
+- Access to an Open WebUI instance
+- Your Open WebUI login credentials
 
 ## 🏗️ Project Structure
 
 ```
 openwebui-chrome-extension/
 ├── src/
-│   ├── background/           # Service worker for API calls
+│   ├── background/          # Service worker for API calls
 │   │   └── service-worker.ts
-│   ├── popup/                # Main chat UI
+│   ├── popup/               # Main chat UI (React)
 │   │   ├── popup.html
-│   │   ├── popup.tsx
-│   │   ├── popup.css
 │   │   ├── App.tsx
 │   │   └── components/
 │   │       ├── Login.tsx
 │   │       └── Chat.tsx
-│   ├── options/              # Settings page
+│   ├── options/             # Settings page
 │   │   ├── options.html
 │   │   └── options.ts
-│   └── shared/               # Shared utilities
-│       ├── api/              # API client
-│       ├── storage/          # Chrome storage helpers
-│       └── types/            # TypeScript types
+│   └── shared/              # Shared utilities
+│       ├── api/             # API client
+│       ├── storage/         # Chrome storage helpers
+│       └── types/           # TypeScript types
 ├── public/
-│   ├── manifest.json         # Extension configuration
-│   └── icons/                # Extension icons
-├── dist/                     # Build output (generated)
-└── package.json
+│   ├── manifest.json        # Extension configuration
+│   └── icons/               # Extension icons (you create)
+├── dist/                    # Build output (generated)
+└── docs/                    # Documentation
 ```
 
-## 🔑 Important Notes
+## 📚 Documentation
 
-### API Configuration
+| Document | Description |
+|----------|-------------|
+| **[START_HERE.md](./START_HERE.md)** | 🎯 **Start here!** Quick setup in 30 minutes |
+| [NEXT_STEPS.md](./NEXT_STEPS.md) | Detailed step-by-step setup guide |
+| [API_CONFIGURATION.md](./API_CONFIGURATION.md) | How to configure your Open WebUI API |
+| [DEBUGGING.md](./DEBUGGING.md) | Troubleshooting and debugging guide |
+| [SETUP.md](./SETUP.md) | Complete setup reference |
+| [create-icons.md](./create-icons.md) | Icon creation options and tips |
 
-**⚠️ CRITICAL**: The API client in `src/shared/api/client.ts` contains placeholder endpoint paths. You **MUST** update these to match your actual Open WebUI API:
+## 🔑 Important: API Configuration
 
-```typescript
-// Current placeholders - UPDATE THESE:
-async login(email: string, password: string): Promise<AuthResponse> {
-  const response = await this.client.post('/api/v1/auths/signin', { // ← Update this path
-    email,
-    password,
-  });
-  // ...
-}
+**⚠️ CRITICAL STEP:** Before the extension will work, you must configure your Open WebUI API endpoints.
 
-async sendMessage(message: string, chatId?: string): Promise<ChatResponse> {
-  const response = await this.client.post('/api/chat', { // ← Update this path
-    message,
-    chat_id: chatId,
-  });
-  // ...
-}
-```
+The extension includes placeholder API endpoints that **must** be updated to match your Open WebUI instance.
 
-### Finding Your API Endpoints
-
-1. Open your Open WebUI instance in a browser
+**Follow these steps:**
+1. Open your Open WebUI in a browser
 2. Open DevTools (F12) → Network tab
-3. Perform actions (login, send message, etc.)
-4. Look at the API requests to see the actual endpoint paths
-5. Update the paths in `client.ts` accordingly
+3. Log in and send a test message
+4. Note the API endpoint URLs
+5. Update `src/shared/api/client.ts` with your endpoints
 
-### CORS Configuration
+📖 **Detailed instructions:** [API_CONFIGURATION.md](./API_CONFIGURATION.md)
 
-If you encounter CORS errors:
+## 🛠️ Development
 
-1. Your Open WebUI instance needs to allow requests from `chrome-extension://`
-2. Add appropriate CORS headers on your server
-3. Or use the background service worker (already implemented) to bypass some restrictions
+### Build Commands
 
-## 🐛 Debugging
+```bash
+# Development build with watch mode
+npm run dev
 
-### View Extension Logs
+# Production build
+npm run build
 
-1. Go to `chrome://extensions/`
-2. Find "Open WebUI Chat"
-3. Click "service worker" (or "background page") to open DevTools
-4. Check console for background script logs
+# Type check without building
+npm run type-check
 
-### View Popup Logs
+# Lint code
+npm run lint
+```
 
-1. Right-click the extension icon
-2. Select "Inspect popup"
-3. Check console for popup script logs
+### Development Workflow
+
+1. Make changes in `src/`
+2. Run `npm run build` (or `npm run dev` for auto-rebuild)
+3. Go to `chrome://extensions/`
+4. Click reload icon on your extension
+5. Test your changes
+
+### Debugging
+
+**View extension logs:**
+- **Popup console**: Right-click extension icon → "Inspect popup"
+- **Background console**: `chrome://extensions/` → Click "service worker"
+
+📖 **Full debugging guide:** [DEBUGGING.md](./DEBUGGING.md)
+
+## 🎨 Customization
+
+### Change Colors
+
+Edit `src/popup/popup.css`:
+```css
+.btn-primary {
+  background: #YOUR-BRAND-COLOR;
+}
+
+.message-user {
+  background: #YOUR-BRAND-COLOR;
+}
+```
+
+### Update Extension Name
+
+Edit `public/manifest.json`:
+```json
+{
+  "name": "Your Company AI Chat",
+  "description": "Your custom description"
+}
+```
+
+### Add Features
+
+Common enhancements:
+- Streaming responses (WebSocket support)
+- Chat history management
+- Multiple conversations
+- Markdown rendering with syntax highlighting
+- Dark mode
+- Keyboard shortcuts
+- Export conversations
+
+## 🧪 Testing
+
+### Manual Testing Checklist
+
+- [ ] Extension loads without errors
+- [ ] Icons display correctly
+- [ ] Login form appears
+- [ ] Can log in successfully
+- [ ] Can send messages
+- [ ] Receive responses
+- [ ] Right-click menu works
+- [ ] Settings page accessible
+- [ ] Logout works
+- [ ] Session persists after browser restart
 
 ### Common Issues
 
-**"Not authenticated" error:**
-- Check if your base URL is correct
-- Verify your credentials
-- Check browser console for detailed error messages
+**Login fails:**
+- Check base URL is correct
+- Verify API endpoints in `client.ts`
+- Check browser console for errors
 
-**"No response from server":**
-- Verify your Open WebUI instance is accessible
-- Check network connectivity
-- Ensure API endpoints are correct
+**CORS errors:**
+- Use background service worker (already implemented)
+- Or configure server CORS headers
 
-**Extension doesn't load:**
-- Check for build errors: `npm run build`
-- Verify all dependencies installed: `npm install`
-- Check Chrome console for errors
+**No response:**
+- Verify API endpoint paths
+- Check Network tab for failed requests
+- Review API response structure
 
-## 📝 Scripts
+📖 **Troubleshooting:** [DEBUGGING.md](./DEBUGGING.md)
 
-- `npm run dev` - Development build with watch mode
-- `npm run build` - Production build
-- `npm run type-check` - Type check without building
-- `npm run lint` - Run ESLint
+## 🚀 Deployment
 
-## 🔐 Security
+### Local Installation (Development)
 
-- Authentication tokens are stored securely in Chrome's local storage
-- Tokens are never exposed in logs
-- HTTPS-only communication with your Open WebUI instance
-- No data is sent to third parties
+1. Build: `npm run build`
+2. Load unpacked in Chrome: `chrome://extensions/`
 
-## 🛣️ Roadmap
+### Team Distribution
 
-- [ ] Update API endpoints to match actual Open WebUI API
-- [ ] Add chat history management
-- [ ] Support for multiple conversations
-- [ ] Markdown rendering for messages
-- [ ] Dark mode support
-- [ ] Keyboard shortcuts
-- [ ] Export chat history
-- [ ] Streaming responses support
+**Option 1: Direct Distribution**
+1. Build the extension: `npm run build`
+2. Zip the `dist` folder
+3. Share with team members
+4. They load as unpacked extension
+
+**Option 2: Chrome Web Store**
+1. Create developer account ($5 one-time fee)
+2. Prepare store listing (screenshots, description)
+3. Package extension as .zip
+4. Submit for review
+5. Publish to store
+
+**Option 3: Enterprise Deployment**
+1. Use Chrome Enterprise policies
+2. Force-install extension across organization
+3. Pre-configure settings via managed storage
+
+## 🔒 Security
+
+- ✅ Authentication tokens encrypted in Chrome storage
+- ✅ HTTPS-only communication
+- ✅ No sensitive data in logs
+- ✅ No data sent to third parties
+- ✅ Follows Chrome Extension security best practices
+- ✅ Manifest v3 compliant
+
+**Security best practices:**
+- Never commit API keys or tokens to Git
+- Use environment variables for sensitive config
+- Regularly update dependencies
+- Review permissions in manifest.json
+- Enable Content Security Policy
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions welcome! Please:
 
-## 📄 License
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow existing code style
+- Add TypeScript types for new code
+- Update documentation for new features
+- Test thoroughly before submitting
+
+## 🛣️ Roadmap
+
+### v1.0 (Current)
+- [x] Basic authentication
+- [x] Chat interface
+- [x] Context menu integration
+- [x] Settings page
+- [x] Session persistence
+
+### v1.1 (Planned)
+- [ ] Streaming responses
+- [ ] Chat history management
+- [ ] Multiple conversation support
+- [ ] Markdown rendering
+- [ ] Code syntax highlighting
+
+### v1.2 (Future)
+- [ ] Dark mode
+- [ ] Keyboard shortcuts
+- [ ] Export conversations
+- [ ] Custom prompts/templates
+- [ ] Voice input support
+
+## 📊 Tech Stack
+
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite 5
+- **State Management**: Zustand
+- **HTTP Client**: Axios
+- **Styling**: CSS3 (custom)
+- **Chrome APIs**: Storage, Runtime, ContextMenus
+
+## 📝 License
 
 MIT License - feel free to use this project for personal or commercial purposes.
 
 ## 🆘 Support
 
-If you encounter issues:
-1. Check the debugging section above
-2. Review your API endpoint configuration
-3. Open an issue on GitHub with details
+**Need help?**
+1. Check [START_HERE.md](./START_HERE.md) for quick start
+2. Review [DEBUGGING.md](./DEBUGGING.md) for troubleshooting
+3. Read [API_CONFIGURATION.md](./API_CONFIGURATION.md) for API setup
+4. Open a GitHub issue with details
+
+**When reporting issues, include:**
+- Error messages (screenshots)
+- Console logs (popup and background)
+- Steps to reproduce
+- Your Open WebUI version
+- Chrome version
+
+## 🙏 Acknowledgments
+
+- Built for use with [Open WebUI](https://github.com/open-webui/open-webui)
+- Chrome Extension Manifest v3 architecture
+- React and TypeScript communities
+
+## 📞 Contact
+
+- **Repository**: [github.com/chad-atexpedient/openwebui-chrome-extension](https://github.com/chad-atexpedient/openwebui-chrome-extension)
+- **Issues**: [GitHub Issues](https://github.com/chad-atexpedient/openwebui-chrome-extension/issues)
 
 ---
 
-**Next Steps:**
-1. Install dependencies: `npm install`
-2. Create extension icons in `public/icons/`
-3. Update API endpoints in `src/shared/api/client.ts`
-4. Build and test: `npm run build`
-5. Load in Chrome and start chatting! 🎉
+**Ready to get started?** 🚀
+
+👉 Read [START_HERE.md](./START_HERE.md) to build your extension in 30 minutes!
+
+---
+
+Made with ❤️ for seamless AI chat access
