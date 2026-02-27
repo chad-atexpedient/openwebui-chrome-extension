@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Extension Icons</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+      color: #333;
+    }
+    .form-group {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #0066cc;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #0052a3;
+    }
+    .preview {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 4px;
+    }
+    .preview h3 {
+      margin-top: 0;
+      color: #555;
+    }
+    .preview-icons {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+    }
+    .preview-item {
+      text-align: center;
+    }
+    .preview-item canvas {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+    }
+    .preview-label {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #666;
+    }
+    .instructions {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2196f3;
+    }
+    .instructions p {
+      margin: 0;
+      color: #1565c0;
+      font-size: 14px;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Create Extension Icons</h1>
+    
+    <div class="instructions">
+      <p><strong>Instructions:</strong> Customize your icon settings below, preview the result, then click "Generate & Download Icons" to create all three icon files.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="iconType">Icon Type:</label>
+      <select id="iconType" onchange="updatePreview()">
+        <option value="letter">Letter/Text</option>
+        <option value="circle">Colored Circle</option>
+        <option value="square">Rounded Square</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="textGroup">
+      <label for="iconText">Icon Text (1-2 characters):</label>
+      <input type="text" id="iconText" value="W" maxlength="2" oninput="updatePreview()">
+    </div>
+
+    <div class="form-group">
+      <label for="bgColor">Background Color:</label>
+      <input type="color" id="bgColor" value="#0066cc" oninput="updatePreview()">
+    </div>
+
+    <div class="form-group">
+      <label for="textColor">Text Color:</label>
+      <input type="color" id="textColor" value="#ffffff" oninput="updatePreview()">
+    </div>
+
+    <div class="preview">
+      <h3>Preview:</h3>
+      <div class="preview-icons">
+        <div class="preview-item">
+          <canvas id="preview16" width="16" height="16"></canvas>
+          <div class="preview-label">16x16</div>
+        </div>
+        <div class="preview-item">
+          <canvas id="preview48" width="48" height="48"></canvas>
+          <div class="preview-label">48x48</div>
+        </div>
+        <div class="preview-item">
+          <canvas id="preview128" width="128" height="128"></canvas>
+          <div class="preview-label">128x128</div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="generateIcons()">📥 Generate & Download Icons</button>
+
+    <div class="success" id="successMessage">
+      ✅ Icons downloaded! Move them to <code>public/icons/</code> directory.
+    </div>
+  </div>
+
+  <script>
+    // Update preview when page loads
+    window.addEventListener('load', updatePreview);
+
+    function updatePreview() {
+      const sizes = [16, 48, 128];
+      sizes.forEach(size => {
+        const canvas = document.getElementById(`preview${size}`);
+        drawIcon(canvas, size);
+      });
+
+      // Show/hide text input based on icon type
+      const iconType = document.getElementById('iconType').value;
+      document.getElementById('textGroup').style.display = 
+        iconType === 'letter' ? 'block' : 'none';
+    }
+
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      const iconType = document.getElementById('iconType').value;
+      const bgColor = document.getElementById('bgColor').value;
+      const textColor = document.getElementById('textColor').value;
+      const text = document.getElementById('iconText').value.toUpperCase() || 'W';
+
+      // Clear canvas
+      ctx.clearRect(0, 0, size, size);
+
+      if (iconType === 'letter') {
+        // Background
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, size, size);
+
+        // Text
+        ctx.fillStyle = textColor;
+        ctx.font = `bold ${size * 0.6}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, size / 2, size / 2);
+      } else if (iconType === 'circle') {
+        // Circle
+        ctx.fillStyle = bgColor;
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Optional inner circle
+        ctx.fillStyle = textColor;
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 4, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (iconType === 'square') {
+        // Rounded square
+        const radius = size * 0.15;
+        ctx.fillStyle = bgColor;
+        ctx.beginPath();
+        ctx.moveTo(radius, 0);
+        ctx.lineTo(size - radius, 0);
+        ctx.quadraticCurveTo(size, 0, size, radius);
+        ctx.lineTo(size, size - radius);
+        ctx.quadraticCurveTo(size, size, size - radius, size);
+        ctx.lineTo(radius, size);
+        ctx.quadraticCurveTo(0, size, 0, size - radius);
+        ctx.lineTo(0, radius);
+        ctx.quadraticCurveTo(0, 0, radius, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        // Inner square
+        const innerSize = size * 0.5;
+        const innerMargin = (size - innerSize) / 2;
+        ctx.fillStyle = textColor;
+        ctx.fillRect(innerMargin, innerMargin, innerSize, innerSize);
+      }
+    }
+
+    function generateIcons() {
+      const sizes = [16, 48, 128];
+      let downloaded = 0;
+
+      sizes.forEach((size, index) => {
+        // Create a temporary canvas for full size
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        
+        // Draw the icon
+        drawIcon(canvas, size);
+
+        // Convert to blob and download
+        canvas.toBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `icon${size}.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          downloaded++;
+          if (downloaded === sizes.length) {
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+              successMsg.style.display = 'none';
+            }, 5000);
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
